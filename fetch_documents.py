@@ -31,13 +31,11 @@ def send_documents(documents, api_token):
         "Authorization": "Bearer {}".format(api_token),
     }
     body = {
-        "table": "documents",
         "rows": documents,
-        "pk": "document_number",
         "replace": True,
     }
     req = urllib.request.Request(
-        "https://demos.datasette.cloud/data/-/create",
+        "https://demos.datasette.cloud/data/documents/-/insert",
         data=json.dumps(body).encode(),
         headers=headers,
         method="POST",
