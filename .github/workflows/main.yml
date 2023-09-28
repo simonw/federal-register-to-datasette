@@ -1,0 +1,22 @@
+name: Fetch Federal Register documents
+
+on:
+  # Push to repository
+  push:
+  # Can be activated manually:
+  workflow_dispatch:
+  # Runs twice a day
+  schedule:
+  - cron: "0 0,12 * * *"
+
+jobs:
+  fetch-documents:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Fetch documents
+      run: python fetch_documents.py
+      # Make the token available as an environment variable
+      env:
+        DATASETTE_API_TOKEN: ${{ secrets.DATASETTE_API_TOKEN }}
