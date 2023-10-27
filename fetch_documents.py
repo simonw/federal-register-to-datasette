@@ -20,7 +20,7 @@ def fetch_documents(date):
     while url:
         with urllib.request.urlopen(url) as response:
             data = json.loads(response.read())
-            for result in data["results"]:
+            for result in (data.get("results") or []):
                 yield result
             url = data.get("next_page_url")
 
